@@ -8,7 +8,7 @@ export default function Orders(){
  const [q,setQ]=useState('');const [sel,setSel]=useState<Order|null>(null);
  const load=()=>api.orders().then(setOrders);useEffect(()=>{load()},[]);
  const shown=orders.filter(o=>(!status||o.status===status)&&(!pay||o.paymentMethod===pay)&&(o.orderNumber+o.customerName+o.phone).toLowerCase().includes(q.toLowerCase()));
- const update=async(o:Order,p:Partial<Order>,msg:string)=>{await api.updateOrder(o.id,p);toast(msg);setSel(null);load()};
+ const update=async(o:Order,p:Partial<Order>,msg:string)=>{try{await api.updateOrder(o.id,p);toast(msg);setSel(null);load()}catch(x){toast((x as Error).message)}};
  return <div className="space-y-4"><h1 className="text-2xl font-bold">Orders</h1>
   <div className="flex flex-wrap gap-2"><input className={inp+' max-w-xs'} placeholder="Search order, name or phone" value={q} onChange={e=>setQ(e.target.value)}/>
    <select className={inp+' max-w-[11rem]'} value={status} onChange={e=>setStatus(e.target.value)}><option value="">All statuses</option>{STATUSES.map(s=><option key={s} value={s}>{s.replace(/_/g,' ').toLowerCase()}</option>)}</select>

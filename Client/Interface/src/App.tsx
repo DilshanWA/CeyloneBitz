@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 export default function App() {
   return (
-    <div>
+    <main id='#top'>
       <section id='/' className='h-[90vh] w-full bg-black justify-center items-center flex'>
         <div className='w-full max-w-6xl m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 p-4'>
           <div className='h-full'>
@@ -19,7 +19,7 @@ export default function App() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
        
   )
 }

@@ -4,20 +4,14 @@ import {STATUSES} from '../types';
 import type {Item,Order} from '../types';
 import {Badge,money} from '../ui';
 export default function Dashboard(){
- const [orders,setOrders]=useState<Order[]>([]);
- const [items,setItems]=useState<Item[]>([]);
- useEffect(()=>{
-  api.orders().then(setOrders);
-  api.items().then(setItems)},
-[]);
+ const [orders,setOrders]=useState<Order[]>([]);const [items,setItems]=useState<Item[]>([]);
+ useEffect(()=>{api.orders().then(setOrders);api.items().then(setItems)},[]);
  const today=new Date().toDateString();
  const low=items.filter(i=>i.stock<=5);
  const stats:[string,string|number][]=[
   ['Orders today',orders.filter(o=>new Date(o.createdAt).toDateString()===today).length],
   ['Paid revenue',money(orders.filter(o=>o.paymentStatus==='PAID').reduce((s,o)=>s+o.total,0))],
-  ['Pending orders',orders.filter(o=>o.status==='PENDING').length],['Low or out of stock',low.length]
-];
-
+  ['Pending orders',orders.filter(o=>o.status==='PENDING').length],['Low or out of stock',low.length]];
  const counts=STATUSES.map(s=>[s,orders.filter(o=>o.status===s).length] as const);const max=Math.max(1,...counts.map(c=>c[1]));
  return <div className="space-y-6"><h1 className="text-2xl font-bold">Dashboard</h1>
   <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">{stats.map(([l,v])=><div key={l} className="rounded-lg bg-white p-4"><p className="text-sm text-slate-500">{l}</p><p className="mt-1 text-2xl font-bold">{v}</p></div>)}</div>

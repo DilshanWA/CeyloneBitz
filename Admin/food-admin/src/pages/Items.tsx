@@ -14,8 +14,8 @@ export default function Items(){
   if(!f.name?.trim())e.name='Enter a name';if(!(Number(f.price)>0))e.price='Price must be more than 0';
   if(!f.categoryId)e.categoryId='Choose a category';if(!(Number(f.stock)>=0))e.stock='Stock cannot be negative';
   setErr(e);if(Object.keys(e).length)return;
-  await api.saveItem(f);toast(f.id?'Item saved':'Item created');setForm(null);load()};
- const del=async(i:Item)=>{if(!confirm(`Delete ${i.name}?`))return;await api.deleteItem(i.id);toast('Item deleted');load()};
+  try{await api.saveItem(f);toast(f.id?'Item saved':'Item created');setForm(null);load()}catch(x){toast((x as Error).message)}};
+ const del=async(i:Item)=>{if(!confirm(`Delete ${i.name}?`))return;try{await api.deleteItem(i.id);toast('Item deleted');load()}catch(x){toast((x as Error).message)}};
  const toggle=async(i:Item)=>{await api.saveItem({...i,available:!i.available});load()};
  return <div className="space-y-4"><div className="flex flex-wrap items-center justify-between gap-2"><h1 className="text-2xl font-bold">Food items</h1>
   <button className={btn} onClick={()=>{setErr({});setForm({...blank,categoryId:cats[0]?.id||''})}}>Add food item</button></div>
