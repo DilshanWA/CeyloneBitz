@@ -1,5 +1,0 @@
-{"name":"food-server","private":true,"version":"1.0.0",
-"scripts":{"dev":"tsx watch src/index.ts","build":"tsc","start":"node dist/index.js","db:migrate":"prisma migrate dev","db:deploy":"prisma migrate deploy","db:seed":"prisma db seed"},
-"prisma":{"seed":"tsx prisma/seed.ts"},
-"dependencies":{"@prisma/client":"^6.0.0","bcryptjs":"^2.4.3","cors":"^2.8.5","dotenv":"^16.4.5","express":"^5.0.0","express-rate-limit":"^7.4.0","helmet":"^8.0.0","jsonwebtoken":"^9.0.2","zod":"^3.23.8"},
-"devDependencies":{"@types/bcryptjs":"^2.4.6","@types/cors":"^2.8.17","@types/express":"^5.0.0","@types/jsonwebtoken":"^9.0.6","@types/node":"^20.14.0","prisma":"^6.0.0","tsx":"^4.16.0","typescript":"^5.5.3"}}
